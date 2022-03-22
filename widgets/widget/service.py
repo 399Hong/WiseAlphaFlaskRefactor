@@ -16,6 +16,7 @@ def create_widget(conn : sqlite3.Connection) -> Union[list,dict]:
     conn.commit()
     response['status'] = 201
     return response
+
 @utils.dbHandler
 def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[list,dict]:
 
@@ -42,7 +43,6 @@ def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[list,dict]:
             })
 
     return response
-
 
 @utils.dbHandler
 def getWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
@@ -76,7 +76,6 @@ def deleteWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
         cur.execute(query, (id, ))
 
         rowcount = cur.rowcount
-        cur.close()
     conn.commit()
     # postive rowcount means delete successful
     if rowcount > 0:
@@ -138,7 +137,7 @@ def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
     return response
 
 @utils.dbHandler
-def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
 
@@ -156,7 +155,6 @@ def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[tuple,d
 
 
     return response
-
 
 @utils.dbHandler
 def updateWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
