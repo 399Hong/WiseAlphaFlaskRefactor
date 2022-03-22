@@ -29,8 +29,10 @@ def widget(widget_id):
     
     if request.method == "PUT":
         response = service.updateWidgetbyID(widget_id)
+
     elif request.method == "DELETE":
         response = service.deleteWidgetbyID(widget_id)
+
     elif request.method == "GET":
         response = service.getWidgetbyID(widget_id)
 
@@ -60,6 +62,7 @@ def widget_option(widget_id, option_id):
 
     elif request.method == "DELETE":
         response = service.deleteWidgetOptionByID(option_id)
+        
     elif request.method == "GET":
         response = service.getWidgetOptionByID(option_id)
     return jsonify(response)
