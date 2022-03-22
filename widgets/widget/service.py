@@ -6,7 +6,7 @@ from typing import Union
 from contextlib import closing
 
 @utils.dbHandler
-def create_widget(conn : sqlite3.Connection) -> Union[tuple,dict]:
+def create_widget(conn : sqlite3.Connection) -> Union[list,dict]:
 
     widget = request.get_json()
     response = {}
@@ -17,7 +17,7 @@ def create_widget(conn : sqlite3.Connection) -> Union[tuple,dict]:
     response['status'] = 201
     return response
 @utils.dbHandler
-def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[tuple,dict]:
+def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[list,dict]:
 
     response = []
  
@@ -45,7 +45,7 @@ def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[tuple,dict]:
 
 
 @utils.dbHandler
-def getWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def getWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
     widget_row = None
@@ -66,7 +66,7 @@ def getWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
     return response
 
 @utils.dbHandler
-def deleteWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def deleteWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
     rowcount = 0
@@ -87,7 +87,7 @@ def deleteWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
     return response
 
 @utils.dbHandler
-def updateWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def updateWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
     rowcount = 0
@@ -110,7 +110,7 @@ def updateWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
 
 """"""""
 @utils.dbHandler
-def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     option = request.get_json()
     response = {}
@@ -159,7 +159,7 @@ def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[tuple,d
 
 
 @utils.dbHandler
-def updateWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def updateWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
 
     option = request.get_json()
@@ -189,7 +189,7 @@ def updateWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict
     return response
 
 @utils.dbHandler
-def getWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def getWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
     option_row = None
@@ -213,7 +213,7 @@ def getWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
     return response
 
 @utils.dbHandler
-def deleteWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[tuple,dict]:
+def deleteWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     response = {}
     rowcount = None
