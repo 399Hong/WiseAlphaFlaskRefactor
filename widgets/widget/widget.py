@@ -8,17 +8,18 @@ widget_blueprint = Blueprint(
 
 @widget_blueprint.route('/widgets/', methods=["GET", "POST"])
 def widget_list():
-    widgets = []
+    response = []
 
     if request.method == 'POST':
-        return jsonify(service.create_widget())
+        
+        response = service.create_widget()
     
     elif request.method == 'GET':
         name = request.args.get('name')
-        print("here")
-        widgets = service.getWidgetbyName(name)
+        
+        response = service.getWidgetbyName(name = name)
 
-    return jsonify(widgets)
+    return jsonify(response)
 
 
 
@@ -28,13 +29,13 @@ def widget(widget_id):
     response = {}
     
     if request.method == "PUT":
-        response = service.updateWidgetbyID(widget_id)
+        response = service.updateWidgetbyID(id = widget_id)
 
     elif request.method == "DELETE":
-        response = service.deleteWidgetbyID(widget_id)
+        response = service.deleteWidgetbyID(id = widget_id)
 
     elif request.method == "GET":
-        response = service.getWidgetbyID(widget_id)
+        response = service.getWidgetbyID(id = widget_id)
 
     return jsonify(response)
 
@@ -44,10 +45,10 @@ def widget_options(widget_id):
     response = {}
 
     if request.method == 'POST':
-        response = service.createWidgetOption(widget_id)
+        response = service.createWidgetOption(id = widget_id)
 
     elif request.method == "GET" :
-        response = service.getWidgetOptionByWidgetID(widget_id)
+        response = service.getWidgetOptionByWidgetID(id = widget_id)
     
     return jsonify(response)
 
@@ -58,11 +59,11 @@ def widget_option(widget_id, option_id):
     response = {}
     
     if request.method == "PUT":
-        response = service.updateWidgetOptionByID(option_id)
+        response = service.updateWidgetOptionByID(id = option_id)
 
     elif request.method == "DELETE":
-        response = service.deleteWidgetOptionByID(option_id)
-        
+        response = service.deleteWidgetOptionByID(id = option_id)
+
     elif request.method == "GET":
-        response = service.getWidgetOptionByID(option_id)
+        response = service.getWidgetOptionByID(id = option_id)
     return jsonify(response)
