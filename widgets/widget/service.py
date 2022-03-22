@@ -1,34 +1,10 @@
-from urllib import response
+
 import utils
-from flask import jsonify, request,current_app
+from flask import request,current_app
 import sqlite3
 from typing import Union
 from contextlib import closing
 
-
-
-# def create_widget() -> dict:
-#     conn = None
-#     widget = request.get_json()
-#     response = {}
-#     try:
-#         conn = utils.get_db_connection(current_app.config['DATABASE'])
-#         cur = conn.cursor()
-#         cur.execute("INSERT INTO widget (name) VALUES (?)", (widget.get('name'), ))
-#         cur.close()
-#         conn.commit()
-#         response['status'] = 201
-#     except sqlite3.Error as error :
-#         print("Error while working with SQLite.", error)
-#         conn.rollback()
-#         response['status'] = 500
-
-
-#     finally:
-#         if conn:
-#             conn.close()
-
-#     return response
 @utils.dbHandler
 def create_widget(conn : sqlite3.Connection) -> Union[tuple,dict]:
 

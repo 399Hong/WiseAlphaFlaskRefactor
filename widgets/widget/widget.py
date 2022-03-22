@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request,current_app
-import sqlite3
-import utils
+
 from widgets.widget import service
 
 widget_blueprint = Blueprint(
@@ -11,12 +10,12 @@ def widget_list():
     response = []
 
     if request.method == 'POST':
-        
+
         response = service.create_widget()
-    
+
     elif request.method == 'GET':
+
         name = request.args.get('name')
-        
         response = service.getWidgetbyName(name = name)
 
     return jsonify(response)
@@ -29,12 +28,15 @@ def widget(widget_id):
     response = {}
     
     if request.method == "PUT":
+
         response = service.updateWidgetbyID(id = widget_id)
 
     elif request.method == "DELETE":
+
         response = service.deleteWidgetbyID(id = widget_id)
 
     elif request.method == "GET":
+
         response = service.getWidgetbyID(id = widget_id)
 
     return jsonify(response)
@@ -45,6 +47,7 @@ def widget_options(widget_id):
     response = {}
 
     if request.method == 'POST':
+
         response = service.createWidgetOption(id = widget_id)
 
     elif request.method == "GET" :

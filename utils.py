@@ -1,10 +1,9 @@
 import functools
-from logging import exception
+
 import os
 import sqlite3
 from pathlib import Path
 from flask import current_app
-from contextlib import closing
 
 def getPath(fileName:str) -> str:
     script_path = Path(__file__).parent.absolute()
