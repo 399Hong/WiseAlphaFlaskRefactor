@@ -20,19 +20,6 @@ def dbHandler(func):
         try:
         
             conn = get_db_connection(current_app.config['DATABASE'])
-            # cur = conn.cursor()
-            # query = "DELETE FROM widget_option WHERE id = ?"
-            # cur.execute(query, (id, ))
-
-            # rowcount = cur.rowcount
-            # print(rowcount)
-            # cur.close()
-            # conn.commit()
-            # # postive rowcount means delete successful
-            # if rowcount > 0:
-            #     response ['status'] = 204
-            # else:
-            #     response ['status'] = 404
             response =  func(conn = conn, *args, **kwargs)
 
 
