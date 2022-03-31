@@ -10,6 +10,7 @@ def create_widget(conn : sqlite3.Connection) -> Union[list,dict]:
 
     widget = request.get_json()
     response = {}
+
     with closing(conn.cursor()) as cur:
         cur.execute("INSERT INTO widget (name) VALUES (?)", (widget.get('name'), ))
     
@@ -21,7 +22,6 @@ def create_widget(conn : sqlite3.Connection) -> Union[list,dict]:
 def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[list,dict]:
 
     response = []
- 
     where_clause = ''
     # for filtering names
 
@@ -33,7 +33,6 @@ def getWidgetbyName(conn : sqlite3.Connection, name :str) ->  Union[list,dict]:
         seq = tuple()
 
     with closing(conn.cursor()) as cur:
-
         query = f"SELECT id, name FROM widget {where_clause} ORDER BY name"
 
         for row in cur.execute(query,seq):
@@ -59,9 +58,9 @@ def getWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
             "id": widget_row[0],
             "name": widget_row[1],
         }
+
     else:
         response['status'] = 404
-
 
     return response
 
@@ -74,12 +73,13 @@ def deleteWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
     with closing(conn.cursor()) as cur:
         query = "DELETE FROM widget WHERE id = ?"
         cur.execute(query, (id, ))
-
         rowcount = cur.rowcount
+
     conn.commit()
     # postive rowcount means delete successful
     if rowcount > 0:
         response ['status'] = 204
+
     else:
         response ['status'] = 404
 
@@ -93,7 +93,6 @@ def updateWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
     widget = request.get_json()
     with closing(conn.cursor()) as cur:
-
         cur.execute("UPDATE widget SET name = ? WHERE id = ?", (widget.get('name'), id, ))
         rowcount = cur.rowcount
 
@@ -101,13 +100,14 @@ def updateWidgetbyID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
     # postive rowcount means update successful
     if rowcount > 0:
         response ['status'] = 204
+
     else:
         response ['status'] = 404
 
 
     return response
 
-""""""""
+
 @utils.dbHandler
 def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
@@ -116,7 +116,6 @@ def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
     rowcount = 0
 
     with closing(conn.cursor()) as cur:
-        
         cur = conn.cursor()
         cur.execute("PRAGMA foreign_keys=ON")
         cur.execute("INSERT INTO widget_option (name, value, widget_id) VALUES (?, ?, ?)", (
@@ -131,6 +130,7 @@ def createWidgetOption(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
     # postive rowcount means update successful
     if rowcount > 0:
         response ['status'] = 201
+
     else:
         response ['status'] = 404
 
@@ -142,9 +142,9 @@ def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[list,di
     response = {}
 
     with closing(conn.cursor()) as cur:
-    
         query = "SELECT id, name, value, widget_id FROM widget_option WHERE widget_id = ? ORDER BY name"
         response = []
+
         for row in cur.execute(query, (id, )):
             response.append({
                 "id": row[0],
@@ -153,33 +153,29 @@ def getWidgetOptionByWidgetID(conn : sqlite3.Connection,id:int) -> Union[list,di
                 "widget_id": row[3],
             })
 
-
     return response
 
 @utils.dbHandler
 def updateWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
 
-
     option = request.get_json()
     response = {}
     rowcount = 0
 
-    
     with closing(conn.cursor()) as cur:
-    
         query = "UPDATE widget_option SET name = ?, value = ? WHERE id = ?"
         cur.execute(query, (
             option.get('name'),
             option.get('value'),
             id
         ))
-        
         rowcount = cur.rowcount
 
     conn.commit()
     # postive rowcount means update successful
     if rowcount > 0:
         response ['status'] = 204
+
     else:
         response ['status'] = 404
 
@@ -205,6 +201,7 @@ def getWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]:
             "value": option_row[2],
             "widget_id": option_row[3],
         }
+
     else:
         response['status'] = 404
 
@@ -217,7 +214,6 @@ def deleteWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]
     rowcount = None
 
     with closing(conn.cursor()) as cur:
-    
         query = "DELETE FROM widget_option WHERE id = ?"
         cur.execute(query, (id, ))
         rowcount = cur.rowcount
@@ -226,7 +222,9 @@ def deleteWidgetOptionByID(conn : sqlite3.Connection,id:int) -> Union[list,dict]
     # postive rowcount means delete successful
     if rowcount > 0:
         response ['status'] = 204
+
     else:
         response ['status'] = 404
+        
 
     return response

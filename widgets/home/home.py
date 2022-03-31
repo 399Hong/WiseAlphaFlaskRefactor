@@ -5,4 +5,5 @@ home_blueprint = Blueprint(
 
 @home_blueprint .route('/')
 def intro():
+    
     return "WiseAlpha refactor task"
